@@ -4,7 +4,7 @@ Online SQL Client, Exploratory Data Analysis, Data Processing and Low Code Apps
 
 ![image](https://user-images.githubusercontent.com/6579079/174428313-98274c8c-248c-45b8-9caa-6ada1bac1b31.png)
 
-WORKSHEETS Data Studio - Is a productivity software for anyone working with Data and SQL Databases. Where you can:
+WORKSHEETS Data Studio - is a low code data management platform for anyone working with Data and SQL Databases. Where you can:
 
  - Connect to any SQL Database. (USE public or your private SQL Data Api)
  - Visualize data in excel like data grids, charts or create input forms
