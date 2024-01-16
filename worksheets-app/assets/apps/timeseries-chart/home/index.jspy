@@ -1,0 +1,126 @@
+from 'sql-data-api' import httpGet
+from 'datapipe-js/array' import toSeries
+from 'datapipe-js/utils' import parseNumberOrNull, parseDatetimeOrNull, dateToString
+
+BASE_URL = "https://www.alphavantage.co/query"
+TIMESERIES = "function=TIME_SERIES_DAILY"
+API_KEY = "demo"
+
+async def onInit():
+  refresh("IBM")
+
+async def  refresh(symbol):
+  data = getData(symbol)
+
+  series = toSeries(data.timeseries)
+  
+  chartData = [{
+      x: series.date,
+      y: series.volume,
+      yaxis: 'y2', 
+      type: 'bar',
+      name: 'volume'
+    }, {
+      x: series.date,
+      y: series.close,
+      mode: 'lines',
+      name: 'close'
+    }, {
+      x: series.date,
+      y: series.open,
+      mode: 'lines',
+      name: 'open'
+    }
+  ]
+
+  selectorOptions = {
+    buttons: [{
+        step: 'month',
+        stepmode: 'backward',
+        count: 1,
+        label: '1m'
+    }, {
+        step: 'month',
+        stepmode: 'backward',
+        count: 3,
+        label: '2m'
+    }, {
+        step: 'all',
+    }],
+  }
+
+  chartlayout = {
+    xaxis: {
+      rangeselector: selectorOptions,
+      rangeslider: {}
+    },
+    yaxis: {
+      fixedrange: true
+    },
+    yaxis2: {
+      title: 'volume', 
+      overlaying: 'y', 
+      side: 'right'
+    }
+  }
+ 
+  setUIValue({
+    info: data.info,
+    layout: chartlayout,
+    data: chartData,
+    columnsDef: Object.keys(data.timeseries[0]).map(f => {field: f}),
+    rowData: data.timeseries
+  })
+
+async def getData(symbol):
+  
+  storageKey = format(dateTime(), 'yyyy-MM-dd') + ':' + symbol
+  savedData = localStorage.getItem(storageKey)
+
+  if savedData?.length > 2:
+    items = JSON.parse(savedData)
+    items.timeseries = items.timeseries.map(r => Object.assign({}, r, {date: parseDatetimeOrNull(r.date)}))
+    return items
+
+  data = httpGet(BASE_URL + "?" + TIMESERIES + "&symbol="+symbol+"&apikey=" + API_KEY)
+
+  meta = data["Meta Data"]
+  timeSeries = data["Time Series (Daily)"]
+  
+  if timeSeries == null:
+    raise Error('Connection error. Check your API key and limits')
+  
+  result = { 
+      info: {
+        symbol: meta['2. Symbol'],
+        description: meta['1. Information']
+      },
+      timeseries: Object
+        .keys(timeSeries)
+        .map(date => 
+          r = timeSeries[date]
+          return {
+            symbol, 
+            date: parseDatetimeOrNull(date),
+            open: parseNumberOrNull(r["1. open"]),
+            high: parseNumberOrNull(r["2. high"]),
+            low: parseNumberOrNull(r["3. low"]),
+            close: parseNumberOrNull(r["4. close"]),
+            volume: parseNumberOrNull(r["5. volume"])
+          }
+        )
+    }
+  
+  localStorage.setItem(storageKey, JSON.stringify(result))  
+  return result
+
+async def chooseSymbol():
+  symbol = app.showDialog('symbol-selector', {symbol: dataContext.info.symbol}).onCloseAsync()
+
+  if symbol?.length > 0 :
+    refresh(symbol)
+
+async def _test():
+  getData("IBM")    
+
+  

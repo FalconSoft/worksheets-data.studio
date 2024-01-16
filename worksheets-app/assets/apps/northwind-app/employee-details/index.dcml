@@ -1,0 +1,132 @@
+<dcml>
+  <layout src="main-layout.dcml" />
+  <script src="employee-details/index.jspy" />
+
+  <template>
+    <div class="container d-flex flex-column py-md-2 w-100 h-100 overflow-auto px-0 px-md-3">
+
+      <div class="border-bottom pb-2 my-3">
+        <link to="home">HOME</link>
+        <span>  / </span>
+        <link to="employees-list">EMPLOYEES</link>
+        <span>  /  DETAILS</span>
+      </div>
+
+      <div class="d-flex flex-row align-items-center mb-2">
+        <i class="fa fa-users fa-lg mr-2" /><text text-style="h2" class="mb-0" binding="$.employee.Name">Employee
+          Details</text>
+      </div>
+
+      <div class="card my-0 h-lg-100 d-flex overflow-hidden">
+        <div class="card-header align-items-center row p-1 p-md-2 m-0">
+          <text class="mr-1" font-weight="900">ID:</text>
+          <text binding="$.employee/EmployeeId"></text>
+
+          <div class="row ml-auto mr-0">
+            <div class="form-group row m-0 align-items-center ml-md-auto">
+              <label class="col-form-label px-0" for="name-input">Name:</label>
+              <div class="col-auto px-0 px-md-2">
+                <input id="name-input" readonly="true" class="form-control form-control-sm" binding="$.employee/Name" name="employee-name" />
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="card-body d-flex flex-column p-1 p-lg-3 overflow-hidden">
+          <div class="d-flex flex-wrap">
+
+            <div class="d-flex flex-fill flex-wrap row mx-0">
+
+              <div class="d-flex flex-column flex-fill my-1 px-1 px-md-2 col-6 col-md-3">
+                <div>Title</div>
+                <input class="form-control form-control-sm" type="text" binding="$.employee/Title" name="Title" />
+              </div>
+
+              <div class="d-flex flex-column flex-fill my-1 px-1 px-md-2 col-6 col-md-3">
+                <div>Position</div>
+                <input class="form-control form-control-sm" type="text" binding="$.employee/Position" name="Position" />
+              </div>
+
+              <div class="d-flex flex-column flex-fill my-1 px-1 px-md-2 col-6 col-md-3">
+                <div>Age</div>
+                <input class="form-control form-control-sm" type="text" binding="$.employee/Age" name="Phone" />
+              </div>
+
+              <div class="d-flex flex-column flex-fill my-1 px-1 px-md-2 col-6 col-md-3">
+                <div>Hire Date</div>
+                <input class="form-control form-control-sm" type="date" binding="$.employee/HireDate" name="Fax" />
+              </div>
+            </div>
+
+            <div class="d-flex flex-fill flex-wrap">
+
+              <div class="d-flex flex-column flex-fill my-1 px-1 px-md-2 col-6 col-md-3">
+                <div>Country</div>
+                <input class="form-control form-control-sm" type="text" binding="$.employee/Country" name="Country" />
+              </div>
+
+              <div class="d-flex flex-column flex-fill my-1 px-1 px-md-2 col-6 col-md-3">
+                <div>Reports To</div>
+                <input class="form-control form-control-sm" type="text" binding="$.employee/ReportsTo" name="ContactTitle" />
+              </div>
+
+              <div class="d-flex flex-column flex-fill my-1 px-1 px-md-2 col-6 col-md-3">
+                <div>Orders Count</div>
+                <input class="form-control form-control-sm" type="text" binding="$.employee/OrdersCount" name="Phone" />
+              </div>
+
+              <div class="d-flex flex-column flex-fill my-1 px-1 px-md-2 col-6 col-md-3">
+                <div>Sales Total</div>
+                <input class="form-control form-control-sm" type="number" binding="$.employee/SalesTotal" name="Fax" />
+              </div>
+            </div>
+
+
+          </div>
+          <tab-container class="h-100 w-100 overflow-hidden px-1 px-md-2">
+            <tab header="Orders" padding="0.5rem">
+
+              <div height="200px">
+                <ag-grid class="h-100" rowData="$.rowData" columnsDef="$.columnsDef"></ag-grid>
+              </div>
+            </tab>
+          </tab-container>
+
+          <div class="row m-0">
+            <div class="col-md-auto ml-auto" width="250px">
+              <div class="row">
+                <span class="col-6">Total:</span>
+                <div class="col-6 text-right">
+                  <text>$.total</text>
+                </div>
+              </div>
+
+              <div class="row">
+                <span class="col-6">Sub Total:</span>
+                <div class="col-6 text-right">
+                  <text>$.subTotal</text>
+                </div>
+              </div>
+              <div class="row">
+                <span class="col-6" style="white-space: nowrap">Orders Count:</span>
+                <div class="col-6 text-right">
+                  <text>$.ordersCount</text>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row d-none">
+            <div class="col-12">
+              <div style="text-align: center;">
+                <button type="button" class="btn btn-secondary ml-auto" onClick="submitCustomerOrder();">Update</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </template>
+</dcml>

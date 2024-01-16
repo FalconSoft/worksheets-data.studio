@@ -1,0 +1,5 @@
+/lite-mode-data
+/worksheets-api-lite/*.pdb
+/worksheets-api-lite/appsettings.Development.json
+/worksheets-api-lite/appsettings.Release_Lite.Development.json
+/worksheets-api-lite/appsettings.Release_Lite.json

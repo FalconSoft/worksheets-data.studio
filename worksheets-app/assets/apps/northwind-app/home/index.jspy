@@ -1,0 +1,142 @@
+from 'datapipe-js/array' import first, sum
+from 'sql-data-api' import sqlDataApi
+
+def columnsDef():
+  return [
+    { field: "Title", width: 160 },
+    createAgColumnAsLink(
+      { field: "Employee", headerName: "Name", flex: 1, minWidth: 80 }, 
+      'employee-details',
+      d => {employeeId: d.EmployeeId}
+    ),
+    { field: "Country", width: 90 },
+    { field: "City", width: 100 },
+    { field: "OrdersCount", headerName: "Name", width: 90, type: "numericColumn" },
+    { field: "SalesTotal", width: 80, type: "numericColumn" }   
+  ]
+
+async def getSalePersonsList(dateParams):
+  sqlDataApi("northwind-db-connection")
+    .sqlExecute("northwind.NorthwindEmployeesSummary", dateParams)
+
+async def getSummary(dateParams):
+  summary = first(sqlDataApi("northwind-db-connection")
+    .sqlExecute("northwind.NorthwindSummary", dateParams))
+  summary.sales = format(summary.sales, "#,##")
+  summary.freight = format(summary.freight, "#,##")
+  return summary
+
+async def getOrdersByCountry(dateParams):
+  summary = sqlDataApi("northwind-db-connection")
+    .sqlExecute("northwind.NorthwindByCountrySummary", dateParams)
+
+  return summary
+
+async def getTopCustomersList(dateParams):
+  sqlDataApi("northwind-db-connection")
+    .sqlExecute("northwind.NorthwindTop10CustomersList", dateParams)
+    .map(r =>
+      {
+        name: r.Customer,
+        value: r.SalesTotal,
+        id: r.CustomerId
+      }
+    )
+
+def customersChart(data):
+  return {
+      data,
+      series: [{ 
+        type: 'bar', 
+        xKey: 'name', yKey: 'value',
+        listeners: { nodeClick: ev => app.showPage('orders-list', {customer: ev.datum?.name}) }
+      }]
+    }  
+
+def countriesChart(data):
+  return {
+      data,
+      series: [
+        {
+          type: 'pie', 
+          angleKey: 'sales', calloutLabelKey: 'country',
+          listeners: { nodeClick: ev => app.showPage('orders-list', {country: ev.datum?.country}) }
+        }
+      ]
+    }  
+
+async def refreshSections():
+  dateParams = {}
+
+  if dataContext.period.startDate?.length > 0:
+    dateParams.startDate = dataContext.period.startDate
+
+  if dataContext.period.endDate?.length > 0:
+    dateParams.endDate = dataContext.period.endDate
+
+  dataContext.salesPeople = getSalePersonsList(dateParams)
+  dataContext.topCustomers = getTopCustomersList(dateParams)
+  dataContext.summary = getSummary(dateParams)
+  dataContext.ordersByCountry = getOrdersByCountry(dateParams)
+
+  setUIValue({
+      customersChart: customersChart(dataContext.topCustomers),
+      countriesChart: countriesChart(dataContext.ordersByCountry),
+      columnsDef: columnsDef(),
+      rowData: dataContext.salesPeople,
+      summary: getSummary(dateParams)
+    })
+  
+async def onStartDateChanged(date):
+  refreshSections()
+
+async def onEndDateChanged(date):
+  refreshSections()
+
+def togglePeriodBtnClass(act):
+  for btnId in ["allBtn", "yearBtn", "3mBtn", "6mBtn"]:
+    getComponentById(rootUIModel, btnId)
+      .element
+      .classList.remove("active")
+
+  getComponentById(rootUIModel, act)
+    .element
+    .classList.add("active")
+
+async def onAllPeriod():
+  togglePeriodBtnClass("allBtn")
+
+  dataContext.period = {}
+  refreshSections()
+
+async def onYearPeriod():
+  togglePeriodBtnClass("yearBtn")
+  dataContext.period = {
+    startDate: dateTime().getFullYear() + "-01-01",
+    endDate: format(dateTime(), "yyyy-MM-dd")
+  }
+  refreshSections()
+
+async def on3MonthPeriod():
+  togglePeriodBtnClass("3mBtn")
+  dataContext.period = {
+    startDate: "2020-02-14",
+    endDate: format(dateTime(), "yyyy-MM-dd")
+  }
+  refreshSections()
+
+async def on6MonthPeriod():
+  togglePeriodBtnClass("6mBtn")
+  dataContext.period = {
+    startDate: "2019-12-14",
+    endDate: format(dateTime(), "yyyy-MM-dd")
+  }
+  refreshSections()
+
+async def onInit():
+  dataContext.period = {
+    startDate: "2019-01-01",
+    endDate: "2020-05-14"
+  }
+  refreshSections()
+

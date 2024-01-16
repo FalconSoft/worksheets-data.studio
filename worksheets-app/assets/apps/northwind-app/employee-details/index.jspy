@@ -1,0 +1,40 @@
+from 'datapipe-js/array' import first, sum
+from 'sql-data-api' import sqlDataApi
+  
+def columnsDef():
+  return [
+    createAgColumnAsLink(
+      { field: "OrderId", headerName: "Id", width: 70 }, 
+      'order-details',
+      d => {orderId: d.OrderId}
+    ),
+    { field: "Customer", flex: 1, minWidth: 120 },
+    { field: "OrderDate", width: 100 },
+    { field: "ShipCountry", headerName: "Country", width: 100 },
+    { field: "ShipCity", width: 120 },
+    { field: "Freight", width: 80, type: "numericColumn" },
+    { field: "SubTotal", width: 100, type: "numericColumn" },
+    { field: "Total", width: 80, type: "numericColumn" }
+  ]
+
+async def onInit():
+  employeeId = getQueryParams('employeeId')
+
+  dataContext.employee = sqlDataApi("northwind-db-connection")
+    .table("northwind.NorthwindEmployeesListView")
+    .filter("EmployeeId = @employeeId", { employeeId })
+    .query()[0]
+
+  dataContext.orders = sqlDataApi("northwind-db-connection")
+    .table("northwind.NorthwindOrdersListView")
+    .filter("employeeId = @employeeId", { employeeId })
+    .query()
+
+  dataContext.total = format(sum(dataContext.orders, o => o.Total), "L2")
+  dataContext.subTotal = format(sum(dataContext.orders, o => o.SubTotal), "L2")
+  dataContext.ordersCount = dataContext.orders?.length
+
+  setUIValue({
+    columnsDef: columnsDef(),
+    rowData: dataContext.orders
+  })

@@ -1,0 +1,49 @@
+from 'datapipe-js/array' import first, sum
+from 'sql-data-api' import sqlDataApi
+  
+def columnsDef():
+  return [
+    { field: "ProductName", flex: 1 },
+    { field: "UnitPrice", width: 120, type: "numericColumn" },
+    { field: "Quantity", width: 120, type: "numericColumn" },
+    { field: "Discount", width: 120, type: "numericColumn" },
+    { field: "TotalPrice", width: 120, type: "numericColumn" }
+  ]
+
+async def onInit():
+  orderId = getQueryParams('orderId')
+
+  dataContext.data = getOrderInfo(orderId)
+  setTotals()
+
+  setUIValue({
+    columnsDef: columnsDef(),
+    rowData: dataContext.data.items
+  })
+  
+async def getOrderInfo(orderId):
+  orders = sqlDataApi("northwind-db-connection")
+    .table("northwind.NorthwindOrdersEditView")
+    .filter("OrderId = @orderId", {orderId})
+    .query()
+
+  orderDetails = sqlDataApi("northwind-db-connection")
+    .table("northwind.NorthwindOrderDetailsView")
+    .filter("OrderId = @orderId", {orderId})
+    .query()
+
+  return {
+    orderInfo: first(orders),
+    items: orderDetails
+  }
+
+def setTotals():
+  orderDetails = dataContext.data.items
+  subTotal = sum(orderDetails, o => o.TotalPrice)
+  freight = dataContext.data.orderInfo?.Freight
+  total = subTotal + freight
+  dataContext.totals = {
+    subTotal: Math.round(subTotal, 2),
+    freight: freight,
+    total: Math.round(total, 2)
+  }  

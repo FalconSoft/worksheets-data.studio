@@ -1,0 +1,29 @@
+<dcml>
+<script>
+
+def setValue(val):
+  setUIValue('value', val)
+
+def logContext():
+  print('component A context: ', dataContext)
+
+
+  </script>
+  <template>
+
+		<div class="h-100 w-100 border my-2">
+			<div class="container my-2 p-2 h-100 w-100 bg-main overflow-auto">
+        <div class="d-flex flex-column h-100">
+          <h1 class="m-0">Component - A</h1>
+          <div>
+            <button class="btn btn-primary mr-2" onClick="setValue('A1')">Set A1</button>
+            <button class="btn btn-primary mr-2" onClick="setValue('A2')">Set A2</button>
+            <button class="btn btn-primary" onClick="logContext()">Log Context A</button>
+          </div>
+          <text binding="$.value" />
+        </div>
+			</div>
+		</div>
+
+  </template>
+</dcml>

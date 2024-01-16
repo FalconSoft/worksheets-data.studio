@@ -1,0 +1,21 @@
+<dcml>
+  <script/>
+
+  <template>
+
+    <div class="h-100 w-100 overflow-auto d-flex flex-column">
+      <app-header>
+        <menu-items>
+          <menu label="Orders" icon="fa fa-icon" appLink="orders-list"/>
+          <menu label="Customers" icon="fa fa-icon" appLink="customers-list" />
+          <menu label="Employees" icon="fa fa-icon" appLink="employees-list" />
+        </menu-items>
+      </app-header>
+      <div class="container my-2 h-100 w-100 bg-main overflow-auto">
+        <page-placeholder defaultPage="home"></page-placeholder>
+      </div>
+      <app-footer />
+    </div>
+
+  </template>
+</dcml>

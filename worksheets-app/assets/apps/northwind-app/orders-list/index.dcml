@@ -1,0 +1,17 @@
+<dcml>
+  <layout src="main-layout.dcml" />
+  <script src="orders-list/index.jspy"/>
+  <template>
+    <div class="container d-flex flex-column py-md-2 w-100 h-100 overflow-auto px-0 px-md-3">
+      <div class="border-bottom pb-2 my-3">
+        <link to="home">HOME</link>
+        <span>  /  ORDERS</span>
+      </div>
+      <div class="d-flex flex-row align-items-center mb-2">
+        <i class="fa fa-users fa-lg mr-2" /><h3 class="mb-0">Orders</h3> <text class="mt-1 mb-0 ml-1" text-style="h5" binding="$.subTitle"/>
+      </div>
+      
+      <ag-grid class="h-100" rowData="$.rowData" columnsDef="$.columnsDef"></ag-grid>
+    </div>
+  </template>
+</dcml>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <url>
+    <loc>https://run.worksheet.systems</loc>
+  </url>
+  <url>
+    <loc>https://run.worksheet.systems/data-studio/editors/json</loc>
+  </url>
+  <url>
+    <loc>https://run.worksheet.systems/data-studio/editors/jspython</loc>
+  </url>
+  <url>
+    <loc>https://run.worksheet.systems/register</loc>
+  </url>
+
+  <url>
+    <loc>https://run.worksheet.systems/sample-apps</loc>
+  </url>
+  <url>
+    <loc>https://run.worksheet.systems/app/falconsoft@github/worksheet-apps!main!northwind-app</loc>
+  </url>
+  <url>
+    <loc>
+      https://run.worksheet.systems/data-studio/app/falconsoft@github/worksheet-apps!main!northwind-app?file=home!index.dcml</loc>
+  </url>
+  <url>
+    <loc>https://run.worksheet.systems/app/falconsoft@github/worksheet-apps!main!timeseries-chart</loc>
+  </url>
+  <url>
+    <loc>
+      https://run.worksheet.systems/data-studio/app/falconsoft@github/worksheet-apps!main!timeseries-chart?file=home!index.dcml</loc>
+  </url>
+  <url>
+    <loc>https://run.worksheet.systems/app/falconsoft@github/worksheet-apps!main!jspy-examples</loc>
+  </url>
+  <url>
+    <loc>
+      https://run.worksheet.systems/data-studio/app/falconsoft@github/worksheet-apps!main!jspy-examples?file=index.dcml
+    </loc>
+  </url>
+
+
+</urlset>

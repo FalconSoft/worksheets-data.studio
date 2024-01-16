@@ -1,0 +1,56 @@
+<dcml>
+  <layout src="main-layout.dcml" />
+
+  <script>
+
+from 'sql-data-api' import sqlDataApi
+
+def columnsDef():
+  return [
+    { field: "Title", width: 70 },
+    createAgColumnAsLink(
+      { field: "Name", headerName: "Name", flex: 1, minWidth: 80 }, 
+      'employee-details',
+      d => {employeeId: d.EmployeeId}
+    ),
+    { field: "Position", width: 160 },
+    { field: "ReportsTo", width: 160 },
+    { field: "Country", width: 90 },
+    { field: "City", width: 100 },
+    { field: "HireDate", width: 100 },
+    { field: "OrdersCount", headerName: "Name", width: 90, type: "numericColumn" },
+    { field: "SalesTotal", width: 80, type: "numericColumn" }   
+  ]
+
+async def onInit():
+
+  data = sqlDataApi("northwind-db-connection")
+    .table("northwind.NorthwindEmployeesListView")
+    .query() 
+
+  setUIValue({
+    columnsDef: columnsDef(),
+    rowData: data
+  })
+  
+    </script>
+
+  <template>
+
+<div class="container d-flex flex-column py-md-2 w-100 h-100 overflow-auto px-0 px-md-3">
+  <div class="border-bottom pb-2 my-3">
+    <link to="home">HOME</link>
+    <span>  /  EMPLOYEES</span>
+  </div>
+
+  <div class="d-flex flex-row align-items-center mb-2">
+    <i class="fa fa-users fa-lg mr-2" />
+    <h3 class="mb-0">Employees</h3>
+    <text class="mt-1 mb-0 ml-1" text-style="h5" binding="$.subTitle"/>
+  </div>
+  
+  <ag-grid class="h-100" rowData="$.rowData" columnsDef="$.columnsDef"></ag-grid>
+</div>
+
+  </template>
+</dcml>

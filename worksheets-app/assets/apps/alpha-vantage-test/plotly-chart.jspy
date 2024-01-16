@@ -1,0 +1,40 @@
+async def onInit():
+  symbol = 'IBM'
+  refreshData(symbol)
+
+async def onLoadDataFor(symbol):
+  refreshData(symbol)
+
+async def refreshData(symbol):
+  print('refreshData', symbol)
+  data = getData(symbol)
+
+  layout = {
+    title: { text: 'Historical prices - ' + symbol }
+  }
+
+  setUIValue({layout, data})
+
+def getData(symbol):
+  if symbol == 'IBM':
+    return [{
+      x: [2, 3, 4, 5],
+      y: [16, 5, 11, 9],
+      mode: 'lines',
+      name: 'Lines'
+    }, {
+      x: [2, 3, 4, 5],
+      y: [10, 7, 6, 8],
+      type: 'bar'
+    }]
+  
+  return [{
+      x: [2, 3, 4, 5],
+      y: [10, 15, 8, 5],
+      mode: 'lines',
+      name: 'Lines'
+    }, {
+      x: [2, 3, 4, 5],
+      y: [1, 5, 12, 9],
+      type: 'bar'
+    }]

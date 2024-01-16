@@ -1,0 +1,7 @@
+{
+  "title": "Timeseries Chart",
+  "homePage": "home",
+  "description": "Stock data from alphavantage.com",
+  "publicAccess": 1,
+  "publicCodeAccess": 1
+}

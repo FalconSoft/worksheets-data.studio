@@ -1,0 +1,11 @@
+
+async def onInit():
+  dataContext.symbol = dialogParams?.symbol
+
+async def save():
+  dialogRef.close(dataContext.symbol)
+
+
+async def cancel():
+  dialogRef.close()
+  

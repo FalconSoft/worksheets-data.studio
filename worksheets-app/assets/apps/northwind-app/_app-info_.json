@@ -1,0 +1,7 @@
+{
+  "title": "Northwind App",
+  "homePage": "home",
+  "description": "Long Description for an Northwind App",
+  "publicAccess": 1,
+  "publicCodeAccess": 1
+}

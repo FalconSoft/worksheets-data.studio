@@ -1,0 +1,35 @@
+from 'datapipe-js/utils' import parseNumberOrNull
+from 'sql-data-api' import httpGet
+import './app.json' as app
+
+BASE_URL = "https://www.alphavantage.co/query"
+TIMESERIES = "function=TIME_SERIES_DAILY"
+API_KEY = app.alphaVantageApiKey
+
+
+
+async def getTimeseries(symbol):
+  data = httpGet(BASE_URL + "?" + TIMESERIES + "&symbol="+symbol+"&apikey=" + API_KEY)
+
+  timeSeries = data["Time Series (Daily)"]
+
+  if timeSeries == null:
+    raise Error('Connection error. Check your API key and limits')
+  
+  return Object
+    .keys(timeSeries)
+    .map(date => 
+      r = timeSeries[date]
+      return {
+        symbol, date: dateTime(date),
+        open: parseNumberOrNull(r["1. open"]),
+        high: parseNumberOrNull(r["2. high"]),
+        low: parseNumberOrNull(r["3. low"]),
+        close: parseNumberOrNull(r["4. close"]),
+        volume: parseNumberOrNull(r["5. volume"])
+      }
+    )
+
+async def _test():
+  return typeof(parseNumberOrNull('43'))
+  getTimeseries("IBM")
