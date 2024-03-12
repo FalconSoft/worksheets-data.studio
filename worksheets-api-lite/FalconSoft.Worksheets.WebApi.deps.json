@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "FalconSoft.Worksheets.WebApi/1.11.0": {
+      "FalconSoft.Worksheets.WebApi/1.13.0": {
         "dependencies": {
           "FalconSoft.SqlData": "1.0.0",
           "FalconSoft.SqlData.ForPostgreSql": "1.0.0",
@@ -640,7 +640,7 @@
     }
   },
   "libraries": {
-    "FalconSoft.Worksheets.WebApi/1.11.0": {
+    "FalconSoft.Worksheets.WebApi/1.13.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
