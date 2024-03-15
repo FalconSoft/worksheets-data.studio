@@ -1,0 +1,40 @@
+from 'sql-data-api' import sqlDataApi
+
+async def onInit():
+
+  country = getQueryParams("country")
+  customer = getQueryParams("customer")
+
+  sqlApi = sqlDataApi("northwind-db-connection")
+  
+  if country?.length > 0:
+    sqlApi.andFilter("ShipCountry = @country", { country })
+
+  if customer?.length > 0:
+    sqlApi.andFilter("Customer = @customer", { customer })
+  
+  data = sqlApi
+    .query("northwind.NorthwindOrdersListView")
+
+  setUIValue({
+    columnsDef: columnsDef(),
+    rowData: data
+  })
+
+def columnsDef():
+  return [
+    createAgColumnAsLink(
+      { field: "OrderId", headerName: "Id", width: 70 }, 
+      'order-details',
+      d => {orderId: d.OrderId}
+    ),
+    { field: "Customer", flex: 1 },
+    { field: "SalesPerson", width: 150 },
+    { field: "OrderDate", width:100 },
+    { field: "ShipCountry", headerName: 'Country', width: 100 },
+    { field: "ShipCity", headerName: 'City', width: 120 },
+    { field: "Freight", width: 80, type: "numericColumn" },
+    { field: "SubTotal", width: 100,  type: "numericColumn" },
+    { field: "Total", width: 80, type: "numericColumn" }
+  ]
+

@@ -1,0 +1,31 @@
+<dcml>
+<script>
+
+async def onInit():
+  print('home layout initialized ...')
+
+async def showPage(page):
+  app.showPage(page)
+
+  </script>
+
+  <template>
+
+		<div class="h-100 overflow-auto d-flex flex-column">
+			<div class="container my-2 p-2 h-100 w-100 bg-main overflow-auto">
+        <div class="d-flex flex-column h-100 w-100">
+          <div class="row mx-2 align-items-center">
+            <h1 class="m-0">Alpha Vantage Test</h1>
+            <button onClick="showPage('simple-grid.dcml')" class="btn btn-outline-primary mx-2">Grid</button>
+            <link class="btn btn-outline-secondary mr-2" to="simple-grid.dcml">Grid</link>
+            <button onClick="showPage('simple-chart.dcml')" class="btn btn-outline-primary mr-2">Chart</button>
+            <button onClick="showPage('plotly-chart.dcml')" class="btn btn-outline-primary">Plotly Chart</button>
+            <button onClick="showPage('simple-page-1.dcml')" class="btn btn-outline-primary mx-2">Page 1</button>
+          </div>
+          <page-placeholder></page-placeholder>
+        </div>
+			</div>
+		</div>
+
+  </template>
+</dcml>

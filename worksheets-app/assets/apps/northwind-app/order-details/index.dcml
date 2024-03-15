@@ -1,0 +1,217 @@
+<dcml>
+  <layout src="main-layout.dcml" />
+  <script src="order-details/index.jspy" />
+
+  <template>
+
+    <div class="container d-flex flex-column py-md-2 w-100 h-100 overflow-auto px-0 px-md-3">
+
+      <div class="border-bottom pb-2 my-3">
+        <link to="home">HOME</link>
+        <span>  / </span>
+        <link to="orders-list">ORDERS</link>
+        <span>  /  DETAILS</span>
+      </div>
+
+      <div class="d-flex flex-row align-items-center mb-2">
+        <i class="fa fa-diamond fa-lg mr-2" />
+        <h3 class="mb-0">Order Details</h3>
+      </div>
+      <div class="card my-0 h-lg-100 d-flex" style="overflow-x: hidden;">
+        <div class="card-header align-items-center row p-2 m-0">
+          <text class="mr-1" font-weight="900">Edit Order:</text><text binding="$.data/orderInfo/OrderID"></text>
+
+          <div class="row ml-auto">
+            <div class="form-group row m-0 align-items-center ml-md-auto">
+              <label class="col-form-label px-0" for="OrderDate-input">Order Date:</label>
+              <div class="col-auto">
+                <input id="OrderDate-input" class="form-control form-control-sm d-block" type="date"
+              binding="$.data/orderInfo/OrderDate" name="OrderDate" />
+              </div>
+            </div>
+
+            <div class="form-group row m-0 align-items-center ml-md-auto">
+              <label class="col-form-label px-0" for="EmployeeID-input">Sales Person:</label>
+              <div class="col-auto">
+                <input id="OrderDate-input" class="form-control form-control-sm"
+              binding="$.data.orderInfo.SalesPerson" name="employee" />
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="card-body d-flex flex-column p-1 p-lg-3">
+          <div class="row">
+            <div class="col-12 col-lg-6">
+              <div class="col-12 my-2">
+                <div class="row p-2">
+                  <div class="col-12 col-lg-2 pl-lg-0">Bill to:</div>
+                  <div class="col-12 col-lg-10 px-0">
+                    <div class="col-12">
+                      <input readonly="true" binding="$.data.orderInfo.CustomerCompanyName"
+                  class="form-control form-control-sm" />
+                    </div>
+                    <div class="col-12 my-1">
+                      <input readonly="true" binding="$.data/orderInfo/CustomerAddressLine"
+                    class="form-control-sm form-control-plaintext" />
+                    </div>
+                    <div class="col-12">
+                      <div class="row">
+                        <div class="col-4">
+                          <input readonly="true" binding="$.data/orderInfo/CustomerCity"
+                        class="form-control-sm form-control-plaintext" />
+                        </div>
+                        <div class="col-4"></div>
+                        <div class="col-4">
+                          <input readonly="true" binding="$.data/orderInfo/CustomerPostalCode"
+                        class="form-control-sm form-control-plaintext" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 mt-1">
+                      <input readonly="true" binding="$.data/orderInfo/CustomerCountry"
+                    class="form-control-sm form-control-plaintext" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="row p-2 align-items-center">
+                  <!--<div class="col">-->
+                  <div class="col px-lg-0">
+                    <div class="row mx-0">
+                      <div class="col-12 col-lg-auto pl-0 align-self-center">Required Date</div>
+                      <div class="col-12 col-lg-auto px-0" width="135px">
+                        <input class="form-control form-control-sm d-block" type="date" binding="$.data/orderInfo/RequiredDate"
+                        name="RequiredDate" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="row mx-0">
+                      <div class="col-12 col-lg-auto pl-0 align-self-center">Shipped Date</div>
+                      <div class="col-12 col-lg-auto px-0" width="135px">
+                        <input class="form-control form-control-sm d-block" type="date" binding="$.data/orderInfo/OrderDate"
+                        name="OrderDate" />
+                      </div>
+                    </div>
+                  </div>
+                  <!--</div>-->
+                </div>
+              </div>
+
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="col-12 my-2">
+                <div class="row p-2">
+                  <div class="col-12 col-lg-2">Ship to:</div>
+                  <div class="col-12 col-lg-10 px-0">
+                    <div class="col-12">
+                      <input class="form-control form-control-sm" binding="$.data/orderInfo/ShipName" />
+                    </div>
+                    <div class="col-12 mt-1">
+                      <input class="form-control form-control-sm" binding="$.data/orderInfo/ShipAddress"
+                    name="ship-to-address" />
+                    </div>
+                    <div class="col-12 my-1 mx-0">
+                      <div class="row">
+                        <div class="col-4 pr-0">
+                          <input class="form-control form-control-sm" binding="$.data/orderInfo/ShipCity"
+                        name="ship-to-city" />
+                        </div>
+                        <div class="col-4 px-1">
+                          <input class="form-control form-control-sm" binding="$.data/orderInfo/ShipRegion"
+                        name="ship-to-region" />
+                        </div>
+                        <div class="col-4 pl-0">
+                          <input class="form-control form-control-sm" binding="$.data/orderInfo/ShipCountry"
+                        name="ship-to-city" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <input class="form-control form-control-sm" binding="$.data/orderInfo/ShipPostalCode"
+                    name="ship-to-city" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 my-2">
+                <div class="row p-2">
+                  <div class="col-12 col-lg-2">Ship Via:</div>
+                  <div class="col-12 col-lg-10 px-0">
+                    <div class="row justify-content-between mx-0">
+                      <div class="col-4">
+                        <div class="form-group form-check">
+                          <input id="Speedy" type="radio" class="form-check-input" name="option" value="1"
+                      binding="$.data/orderInfo/ShipVia" />
+                          <label for="Speedy" class="form-check-label" width="80px">Speedy Express</label>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="form-group form-check">
+                          <input id="United" type="radio" class="form-check-input" name="option" value="2"
+                      binding="$.data/orderInfo/ShipVia" />
+                          <label for="United" class="form-check-label" width="80px">United Package</label>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="form-group form-check">
+                          <input id="Federal" type="radio" class="form-check-input" name="option" value="3"
+                      binding="$.data/orderInfo/ShipVia" />
+                          <label for="Federal" class="form-check-label" width="80px">Federal Shipping</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <tab-container width="100%" height="100%">
+            <tab header="Order Items" padding="0.5rem">
+              <div height="200px">
+                <ag-grid class="h-100" rowData="$.rowData" columnsDef="$.columnsDef"></ag-grid>
+              </div>
+            </tab>
+          </tab-container>
+
+
+          <div class="row">
+            <div class="col-md-auto ml-md-auto mr-md-3 ml-auto" width="175px">
+              <div class="row">
+                <span class="col-6">Subtotal:</span>
+                <div class="col-6 text-right">
+                  <text>$.totals/subTotal</text>
+                </div>
+              </div>
+              <div class="row">
+                <span class="col-6">Freight:</span>
+                <div class="col-6 text-right">
+                  <text>$.totals/freight</text>
+                </div>
+              </div>
+              <div class="row">
+                <span class="col-6">Total:</span>
+                <div class="col-6 text-right">
+                  <text>$.totals/total</text>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row d-none">
+            <div class="col-12">
+              <div style="text-align: center;">
+                <button type="button" class="btn btn-secondary ml-auto" onClick="submitCustomerOrder();">Update</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </template>
+</dcml>

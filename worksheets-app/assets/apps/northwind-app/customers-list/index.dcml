@@ -1,0 +1,56 @@
+<dcml>
+  <layout src="main-layout.dcml" />
+
+  <script>
+
+from 'sql-data-api' import sqlDataApi
+
+def columnsDef():
+  return [
+    createAgColumnAsLink(
+      { field: "CustomerId", headerName: "Id", width: 80 }, 
+      'customer-details',
+      d => {customerId: d.CustomerId}
+    ),  
+    { field: "CompanyName", flex: 1, minWidth: 120 },
+    { field: "ContactName", width: 150 },
+    { field: "Country" },
+    { field: "City" },
+    { field: "OrdersCount" },
+    { field: "SalesTotal" }
+  ]
+
+async def onInit():
+
+  data = sqlDataApi("northwind-db-connection")
+    .table("northwind.NorthwindCustomersListView")
+    .select("CustomerId, CompanyName, ContactName, ContactTitle, Address, City, Country, OrdersCount, SalesTotal")
+    .orderBy("CompanyName")
+    .query() 
+
+  setUIValue({
+    columnsDef: columnsDef(),
+    rowData: data
+  })
+  
+    </script>
+
+  <template>
+
+<div class="container d-flex flex-column py-md-2 w-100 h-100 overflow-auto px-0 px-md-3">
+  <div class="border-bottom pb-2 my-3">
+    <link to="home">HOME</link>
+    <span>  /  CUSTOMERS</span>
+  </div>
+
+  <div class="d-flex flex-row align-items-center mb-2">
+    <i class="fa fa-users fa-lg mr-2" />
+    <h3 class="mb-0">Customers</h3>
+    <text class="mt-1 mb-0 ml-1" text-style="h5" binding="$.subTitle"/>
+  </div>
+  
+  <ag-grid class="h-100" rowData="$.rowData" columnsDef="$.columnsDef"></ag-grid>
+</div>
+
+  </template>
+</dcml>

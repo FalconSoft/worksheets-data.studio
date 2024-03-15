@@ -1,0 +1,148 @@
+<dcml>
+  <layout src="main-layout.dcml" />
+  <script src="customer-details/index.jspy" />
+
+  <template>
+
+    <div class="container d-flex flex-column py-md-2 w-100 h-100 overflow-auto px-0 px-md-3">
+
+      <div class="border-bottom pb-2 my-3">
+        <link to="home">HOME</link>
+        <span>  / </span>
+        <link to="customers-list">CUSTOMERS</link>
+        <span>  /  DETAILS</span>
+      </div>
+
+      <div class="d-flex flex-row align-items-center mb-2">
+        <i class="fa fa-user fa-lg mr-2" />
+        <text class="mb-0" text-style="h3" binding="$.customer.CompanyName"></text>
+      </div>
+
+      <div class="card my-0 h-lg-100 overflow-hidden d-flex">
+        <div class="card-header align-items-center row p-2 m-0">
+          <text class="mr-1" font-weight="900">Customer:</text><text binding="$.customer/CustomerId"></text>
+
+          <div class="row ml-auto">
+            <div class="form-group row m-0 align-items-center ml-auto">
+              <label class="col-form-label px-0" for="OrderDate-input">Company Name:</label>
+              <div class="col-auto">
+                <input id="OrderDate-input" readonly="true" class="form-control form-control-sm"
+              binding="$.customer/CompanyName" name="company-name" />
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="card-body d-flex flex-column p-1 p-lg-3">
+
+          <div class="d-flex flex-wrap w-100 py-1">
+
+            <div class="d-flex flex-column flex-fill">
+              <h4>Address:</h4>
+
+              <div class="d-flex flex-column flex-fill m-1">
+                <div>Street</div>
+                <input binding="$.customer/Address" class="form-control-sm form-control" />
+              </div>
+
+              <div class="d-flex flex-wrap">
+                <div class="d-flex flex-column flex-fill m-1">
+                  <div>City</div>
+                  <input binding="$.customer/City" class="form-control-sm form-control" />
+                </div>
+                <div class="d-flex flex-column flex-fill m-1">
+                  <div>Region</div>
+                  <input binding="$.customer/Region" class="form-control-sm form-control" />
+                </div>
+                <div class="d-flex flex-column flex-fill m-1">
+                  <div>Postal Code</div>
+                  <input binding="$.customer/PostalCode" class="form-control-sm form-control" />
+                </div>
+              </div>
+
+              <div class="d-flex flex-column flex-fill m-1">
+                <div>Country</div>
+                <input binding="$.customer/Country" class="form-control-sm form-control" />
+              </div>
+            </div>
+
+            <div class="d-flex flex-column flex-fill">
+              <h4>Contact Info:</h4>
+              <!-- row 1-->
+              <div class="d-flex w-100 flex-wrap">
+                <div class="d-flex flex-column flex-fill m-1">
+                  <div>Contact Name</div>
+
+                  <input class="form-control form-control-sm" type="text" binding="$.customer/ContactName"
+                name="ContactName" />
+
+                </div>
+                <div class="d-flex flex-column flex-fill m-1">
+                  <div>Contact Title</div>
+                  <input class="form-control form-control-sm" type="text" binding="$.customer/ContactTitle"/>
+                </div>
+              </div>
+              <!-- end row 1-->
+
+              <!-- row 2-->
+              <div class="d-flex w-100 flex-wrap">
+                <div class="d-flex flex-column flex-fill m-1">
+                  <div>Phone</div>
+                  <input class="form-control form-control-sm" type="text" binding="$.customer/Phone"
+                name="Phone" />
+                </div>
+
+                <div class="d-flex flex-column flex-fill m-1">
+                  <div>Fax</div>
+                  <input class="form-control form-control-sm" type="text" binding="$.customer/Fax"
+                      name="Fax" />
+                </div>
+              </div>
+              <!-- end row 2 -->
+            </div>
+          </div>
+
+          <tab-container class="m-1" width="100%" height="100%">
+            <tab header="Orders" padding="0.5rem">
+
+              <div height="200px">
+                <ag-grid class="h-100" rowData="$.rowData" columnsDef="$.columnsDef"></ag-grid>
+              </div>
+
+              <div class="row">
+                <div class="col-auto ml-auto" width="250px">
+                  <div class="row">
+                    <span class="col-6">Total:</span>
+                    <div class="col-6 text-right">
+                      <text>$.total</text>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <span class="col-6">Orders Count:</span>
+                    <div class="col-6 text-right">
+                      <text>$.ordersCount</text>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </tab>
+          </tab-container>
+
+
+          <div class="row d-none">
+            <div class="col-12">
+              <div style="text-align: center;">
+                <button type="button" class="btn btn-secondary ml-auto" onClick="submitCustomerOrder();">Update</button>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+
+
+  </template>
+</dcml>

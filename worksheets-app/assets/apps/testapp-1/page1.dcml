@@ -1,0 +1,63 @@
+<dcml>
+  <script>
+
+# Evaluated with JSPython https://jspython.dev/
+
+def onChange():
+  print('on Change')
+
+def contactUs():
+  alert(JSON.stringify(dataModel))
+
+async def onTestLoadData():
+  print('onTestLoadData ...', dateTime().toString())
+  data = httpGet("https://restcountries.com/v3.1/region/eu")
+  dataContext.message = JSON.stringify(data)
+
+def onTestClick():
+  print('test 111 ')
+  dataContext.message = dateTime().toString()
+
+
+  </script>
+
+  <template>
+		<div class="h-100 overflow-auto d-flex flex-column">
+			<div class="container my-2 p-2 h-100 w-100 bg-main overflow-auto">
+
+        <form onSubmit="contactUs()">
+          <h3>Contact us</h3>
+          <div class="row">
+            <div class="col-12 col-md-4 mb-2">
+              <label>Full Name*</label>
+              <input class="form-control" binding="$.fullName" onInput="onChange()" required="true" />
+            </div>
+            <div class="col-12 col-md-4 mb-2">
+              <label>E-mail Address*</label>
+              <input class="form-control" binding="$.email" onInput="onChange()" required="true" />
+            </div>
+            <div class="col-12 col-md-4 mb-2">
+              <label>Phone</label>
+              <input type="tel" class="form-control" binding="$.phone" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label>Message</label>
+              <textarea class="form-control" rows="5" onInput="onChange()" binding="$.message" required="true" />
+            </div>
+          </div>
+
+          
+          <div class="d-flex flex-row">
+              <button class="btn btn-primary ml-auto mr-2" id="submitBtn" disabled="false" type="submit">SEND MESSAGE</button>
+              <button class="btn btn-secondary mr-2" disabled="false" onClick="onTestLoadData()">Load Data</button>
+              <button class="btn btn-secondary" disabled="false" onClick="onTestClick()">test 1</button>
+          </div>
+        </form>
+
+			</div>
+		</div>
+
+  </template>
+</dcml>

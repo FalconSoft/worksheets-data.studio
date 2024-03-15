@@ -1,0 +1,29 @@
+<dcml>
+  <script src="home/index.jspy"></script>
+  <template>
+    <div class="w-100 h-100 overflow-auto d-flex flex-column">
+      <app-header>
+        <menu-items>
+          <menu label="Select Symbol" icon="fa fa-icon" click="chooseSymbol()" />
+        </menu-items>
+      </app-header>
+      <div class="container d-flex flex-column my-2 h-100 bg-main overflow-auto py-3">
+        <div class="d-flex">
+          <text text-style="h3" binding="$.info.symbol"></text>
+          <h3>:</h3>
+          <text text-style="h3" class="ml-1" binding="$.info.description"></text>
+        </div>
+
+        <tab-container class="overflow-auto w-100 h-100 my-1">
+          <tab header="Chart" class="d-flex overflow-hidden">
+            <plotly-chart class="h-100" layout="$.layout" data="$.data"></plotly-chart>
+          </tab>
+          <tab header="Table">
+            <ag-grid class="h-100" rowData="$.rowData" columnsDef="$.columnsDef"></ag-grid>
+          </tab>
+        </tab-container>
+      </div>
+      <app-footer />
+    </div>
+  </template>
+</dcml>

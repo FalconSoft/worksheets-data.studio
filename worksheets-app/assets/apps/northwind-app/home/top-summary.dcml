@@ -1,0 +1,55 @@
+<dcml>
+  <script></script>
+
+  <template>
+    <div class="d-flex flex-wrap w-100" >
+
+      <div class="d-flex flex-fill justify-content-center">
+        <div class="col-auto c-callout c-callout-info">
+          <div class="row flex-column">
+            <small class="col text-muted">Orders</small>
+            <div class="col text-value-lg">
+              <text binding="$.summary.orders"></text>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="d-flex flex-fill justify-content-center">
+        <div class="col-auto c-callout c-callout-success">
+          <div class="row flex-column">
+            <small class="col text-muted">Freight</small>
+            <div class="col text-value-lg">
+              <text binding="$.summary.freight"></text>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex flex-fill justify-content-center">
+        <div class="col-auto c-callout c-callout-danger">
+          <div class="row flex-column">
+            <small class="col text-muted">Sales</small>
+            <div class="col text-value-lg">
+              <span>$</span><text binding="$.summary/sales"></text>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="d-flex flex-fill justify-content-center">
+        <div class="col-auto c-callout c-callout-warning">
+          <div class="row flex-column">
+            <small class="col text-muted">Countries</small>
+            <div class="col text-value-lg">
+              <text binding="$.summary/countries"></text>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>  
+  </template>
+</dcml>

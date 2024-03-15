@@ -1,0 +1,18 @@
+{
+  "files": [
+    "customer-details!index.dcml",
+    "customer-details!index.jspy",
+    "customers-list!index.dcml",
+    "employee-details!index.dcml",
+    "employee-details!index.jspy",
+    "employees-list!index.dcml",
+    "home!index.dcml",
+    "home!index.jspy",
+    "home!top-summary.dcml",
+    "main-layout.dcml",
+    "order-details!index.dcml",
+    "order-details!index.jspy",
+    "orders-list!index.dcml",
+    "orders-list!index.jspy"
+  ]
+}
