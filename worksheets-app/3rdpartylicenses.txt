@@ -8753,6 +8753,9 @@ MIT
 ngx-bootstrap/tabs
 MIT
 
+ngx-bootstrap/tooltip
+MIT
+
 ngx-bootstrap/typeahead
 MIT
 
